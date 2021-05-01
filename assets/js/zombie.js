@@ -1,11 +1,11 @@
 class Zombie{
     constructor(ctx){
         this.ctx = ctx
-            this.dist = Math.random() * (1000 - 500) + 500;
+            this.dist = Math.random() * (3000 - 500) + 500;
             this.x = Math.random() > 0.5 ? 0 - this.dist : this.dist
-            this.y = 360;
-            this.w = 151;
-            this.h = 178;
+            this.y = 370;
+            this.w = 126;
+            this.h = 148;
     
             this.health = 4;
     
@@ -17,6 +17,8 @@ class Zombie{
             this.img.drawCount = 0;
             this.img.frames = 8;
             this.img.frameIndex = 0;
+
+            this.canReceiveDamage = true
     }
 
     draw(){
@@ -58,19 +60,30 @@ class Zombie{
 
     receiveDamage(damage){
         this.health = this.health - damage;   
-        this.x = this.x + 2     
-        console.log(this.player.health)
+        this.x = this.x + 20     
+        
         
     }
 
     collide(el) {
         const collideX = el.x + el.w > this.x && el.x < this.x + this.w;
         const collideY = el.y < this.y + this.h && el.y + el.h > this.y;
-    
-        
-        return collideX && collideY;
-      }
 
+        if (collideX && collideY && this.canReceiveDamage){
+
+        
+         this.canReceiveDamage = false
+        
+        setTimeout(() => {
+            this.canReceiveDamage = true
+        }, 5000)
+
+        return collideX && collideY;
+    }
+    
+    return false
+    
+  }
       
     isVisible(){
         return (

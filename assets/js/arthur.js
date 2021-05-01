@@ -17,7 +17,7 @@ class Player {
         this.img = new Image();
         this.img.src = './assets/img/script-warrior-2.png';
         this.img.drawCount = 0;
-        this.img.frames = 8;
+        this.img.frames = 9;
         this.img.frameIndex = 0;
 
         this.jumpSound = new Audio('./assets/sounds/jump.wav')
@@ -51,7 +51,7 @@ class Player {
             this.img,
             this.img.frameIndex * this.img.width / this.img.frames,
             0,
-            this.img.width / 8,
+            this.img.width / 9,
             this.img.height,
             this.x,
             this.y,
@@ -110,9 +110,13 @@ class Player {
 
         else if (this.vx !== 0){  
               
-             if (this.img.frameIndex >= this.img.frames) {
+             if (this.img.frameIndex >= this.img.frames-1) {
                     this.img.frameIndex = 4
                 }
+        }
+
+        else if(this.y < this.ground){
+            this.img.frameIndex = 9
         }
     }
 

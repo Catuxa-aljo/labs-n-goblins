@@ -10,7 +10,7 @@ class Skeleton{
     
             this.health = 3;
     
-            this.vx = -2;
+            this.vx = -3;
             
     
             this.img = new Image();
@@ -18,6 +18,8 @@ class Skeleton{
             this.img.drawCount = 0;
             this.img.frames = 4;
             this.img.frameIndex = 0;
+
+            this.canReceiveDamage = true
     }
 
     draw(){
@@ -59,7 +61,7 @@ class Skeleton{
 
     receiveDamage(damage){
         this.health = this.health - damage;   
-        this.x = this.x + 2     
+        this.x = this.x + 10    
         
         
     }
@@ -67,10 +69,22 @@ class Skeleton{
     collide(el) {
         const collideX = el.x + el.w > this.x && el.x < this.x + this.w;
         const collideY = el.y < this.y + this.h && el.y + el.h > this.y;
-    
+
+        if (collideX && collideY && this.canReceiveDamage){
+
         
+         this.canReceiveDamage = false
+        
+        setTimeout(() => {
+            this.canReceiveDamage = true
+        }, 5000)
+
         return collideX && collideY;
-      }
+    }
+    
+    return false
+    
+  }
 
       
     isVisible(){
