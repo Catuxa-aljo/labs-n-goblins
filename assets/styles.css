@@ -1,0 +1,11 @@
+body{
+    background-color: #47194f;
+    
+}
+
+div{margin: auto; width: 100%;}
+canvas{
+    width: 800px;
+    height: 600px;
+    border: dotted thin #000;
+}
