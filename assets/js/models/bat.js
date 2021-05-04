@@ -7,18 +7,23 @@ class BatHtml{
         this.w = 100;
         this.h = 71;
 
-        this.health = 2;
-
+        this.health = 1;
+        this.life = new MonsterLife(this.ctx)
         this.vx = -1;
         this.canReceiveDamage = true
         
         this.img = new Image();
-        this.img.src = './assets/img/bat.png';
+        this.img.src = './assets/img/bat-html.png';
         this.img.drawCount = 0;
         this.img.frames = 7;
         this.img.frameIndex = 0;
        
+        this.hurtingCreature = new Audio('./assets/sounds/hurting-creature.wav')
 
+
+    }
+
+    enemyLife(){
 
 
     }
@@ -31,7 +36,7 @@ class BatHtml{
             this.img.drawCount = 0
         }
 
-
+        this.life(this.x,this.y, 20, 50)
         this.ctx.drawImage(
             this.img,
             this.img.frameIndex * this.img.width / this.img.frames,
@@ -61,8 +66,10 @@ class BatHtml{
     }
 
     receiveDamage(damage){
+        this.hurtingCreature.play()
         this.health = this.health - damage;   
         this.x = this.x + 20
+       
         
         
         

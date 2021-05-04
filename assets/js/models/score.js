@@ -2,6 +2,9 @@ class Score{
     constructor(ctx){
         this.ctx = ctx;
         this.points = 0
+
+        
+      
     }
 
    
@@ -13,6 +16,8 @@ class Score{
             this.ctx.fillText(
                 `Learning points: ${this.points}`, this.ctx.canvas.width / 2 - 40 , 50
             )
-    }
+            }
+
+    
     
 }

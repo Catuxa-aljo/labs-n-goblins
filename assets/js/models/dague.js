@@ -11,12 +11,14 @@ class Dague{
         this.vx = 2
         this.vy = 0
         this.g = 0
+
+        this.strength = 1
       
 
         this.img = new Image();
         this.img.src = './assets/img/dague.png';
-        this.sound = new Audio('./assets/sounds/dague.wav')      
-        this.sound.play()
+        
+       
 
     }
 

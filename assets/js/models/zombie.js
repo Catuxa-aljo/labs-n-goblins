@@ -1,23 +1,24 @@
-class Skeleton{
+class Zombie{
     constructor(ctx){
-        
-            this.ctx = ctx
-            this.dist = Math.random() * (5000 - 500) + 500;
+        this.ctx = ctx
+            this.dist = Math.random() * (3000 - 500) + 500;
             this.x = Math.random() > 0.5 ? 0 - this.dist : this.dist
-            this.y = 360;
-            this.w = 103;
-            this.h = 150;
+            this.y = 370;
+            this.w = 126;
+            this.h = 148;
     
-            this.health = 3;
+            this.health = 4;
     
             this.vx = -3;
             
     
             this.img = new Image();
-            this.img.src = './assets/img/skeleton.png';
+            this.img.src = './assets/img/zombie.png';
             this.img.drawCount = 0;
-            this.img.frames = 4;
+            this.img.frames = 8;
             this.img.frameIndex = 0;
+
+            this.hurtingZombie = new Audio('./assets/sounds/hurting-zombie.wav')
 
             this.canReceiveDamage = true
     }
@@ -25,7 +26,7 @@ class Skeleton{
     draw(){
 
         this.img.drawCount++
-        if (this.img.drawCount >= 50) {
+        if (this.img.drawCount >= 10) {
             this.animate();
             this.img.drawCount = 0
         }
@@ -35,7 +36,7 @@ class Skeleton{
             this.img,
             this.img.frameIndex * this.img.width / this.img.frames,
             0,
-            this.img.width / 4,
+            this.img.width / 8,
             this.img.height,
             this.x,
             this.y,
@@ -60,8 +61,9 @@ class Skeleton{
     }
 
     receiveDamage(damage){
+        this.hurtingZombie.play()
         this.health = this.health - damage;   
-        this.x = this.x + 10    
+        this.x = this.x + 20     
         
         
     }
@@ -85,7 +87,6 @@ class Skeleton{
     return false
     
   }
-
       
     isVisible(){
         return (
@@ -94,5 +95,4 @@ class Skeleton{
           )
     }
 
-    
 }

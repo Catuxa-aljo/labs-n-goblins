@@ -8,7 +8,7 @@ class Player {
         this.w = 97;
         this.h = 137;
 
-        this.health = 4;
+        this.health = 6;
 
         this.vx = 0;
         this.vy = 0;
@@ -21,7 +21,8 @@ class Player {
         this.img.frameIndex = 0;
 
         this.jumpSound = new Audio('./assets/sounds/jump.wav')
-      
+        this.sound = new Audio('./assets/sounds/dague.wav')      
+             
         
 
         this.dagues = [];
@@ -33,6 +34,11 @@ class Player {
            
 
         }
+
+        this.canReceiveDamage = true
+        this.canShoot = true
+
+     
 
         this.setListeners()
     }
@@ -75,11 +81,8 @@ class Player {
             this.vy = 0
             this.y = this.ground
           }
-          
-
-        
       
-          this.dagues.forEach(dague => dague.move())
+        this.dagues.forEach(dague => dague.move())
 
     }
 
@@ -89,15 +92,29 @@ class Player {
 
     attack(){
         const dague = new Dague(this.ctx, this.x + this.w, this.y + this.h / 2)
-        this.dagues.push(dague)
+        if(this.canShoot){
+        this.sound.play()
+        this.dagues.push(dague)        
+        this.canShoot = false
+      }
+      setTimeout(() => {
+        this.canShoot = true
+    }, 1000)        
+        
     }
 
     receiveDamage(damage){
         this.health = this.health - damage;
-        this.x = this.x - 20
-        console.log(this.health)
+        this.x = this.x - 50   
+        this.y = this.y - 50    
         
     }
+
+    heal(){
+        this.health ++;
+        
+    }
+   
 
     animate() {     
         this.img.frameIndex++
@@ -160,4 +177,24 @@ class Player {
             this.vx = 0
         }
       }
+
+      collide(el) {
+        const collideX = el.x + el.w > this.x && el.x < this.x + this.w;
+        const collideY = el.y < this.y + this.h && el.y + el.h > this.y;
+
+        if (collideX && collideY && this.canReceiveDamage){
+
+        
+         this.canReceiveDamage = false
+        
+        setTimeout(() => {
+            this.canReceiveDamage = true
+        }, 5000)
+
+        return collideX && collideY;
+    }
+    
+    return false
+    
+  }
 }

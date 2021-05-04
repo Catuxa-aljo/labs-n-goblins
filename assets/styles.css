@@ -1,11 +1,27 @@
 body{
     background-color: #47194f;
+    background-image: url('img/pattern.png');
+    background-repeat: repeat;
     
 }
 
-div{margin: auto; width: 100%;}
+div{margin: auto; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;}
+
 canvas{
     width: 800px;
     height: 600px;
     border: dotted thin #000;
+    z-index: 1;
+    position: relative;
+    
 }
+
+#init-credit{
+    width: 800px;
+    height: 600px;
+    z-index: 80;
+    position: relative;
+    background-image:url('./img/initial-credits.png'); background-repeat: no-repeat;
+}
+
+.invisible{display: none;}

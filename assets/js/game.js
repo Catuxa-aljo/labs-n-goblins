@@ -9,20 +9,16 @@ class Game {
     this.background = new Background(this.ctx);
     this.player = new Player(this.ctx);
     this.score = new Score(this.ctx);
-    this.graveyard = [];
-    //this.graveyard2 = [];
-    this.bats = [];
-    this.skeletons = [];
-    this.zombieHorde = [];
-  
-
+    this.scoreLife = new ScoreLife(this.ctx)
+    this.graveyards = [];
+    this.enemies = []
+    this.extraLife = []
 
     this.hurtingPlayer = new Audio('./assets/sounds/hurting-player.wav');
     this.stumbling = new Audio('./assets/sounds/stumbling.wav');
     this.music = new Audio('./assets/sounds/stage.mp3');
-    this.hurtingCreature = new Audio('./assets/sounds/hurting-creature.wav')
-    this.hurtingZombie = new Audio('./assets/sounds/hurting-zombie.wav')
-    this.hurtingSkeleton = new Audio('./assets/sounds/hurting-skeleton.mp3')
+    this.healingsound = new Audio('./assets/sounds/healing.wav');
+
     this.scorePointsAudio = new Audio('./assets/sounds/score-points.wav')
 
 
@@ -34,28 +30,29 @@ class Game {
       this.move();
       this.draw()
       this.addEnemy()
-      
+
       if (this.drawCount++ > 100000) {
         this.drawCount = 0;
       }
       this.checkCollisions()
-     
+      this.checkDeaths()
+    
+
     }, 1000 / 60)
   }
 
   clear() {
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.heigth);
-    this.bats = this.bats.filter(bat => bat.isVisible())  && 
-    this.bats.filter(bat => bat.health > 0);
-    this.skeletons = this.skeletons.filter(skeleton=> skeleton.isVisible()) &&
-    this.skeletons.filter(skeleton => skeleton.health > 0);
-    this.graveyard = this.graveyard.filter(grave => grave.isVisible());
-    this.zombieHorde = this.zombieHorde.filter(zombie => zombie.isVisible()) &&
-    this.zombieHorde.filter(zombie => zombie.health > 0);; 
+    this.enemies = this.enemies.filter(enemy => enemy.isVisible()) &&
+      this.enemies.filter(enemy => enemy.health > 0);
     this.player.dagues = this.player.dagues.filter(dague => dague.isVisible)
-   
-   this.graveyard2 = this.graveyard.filter(ob => ob.isVisible());
+    this.graveyards = this.graveyards.filter(grave => grave.isVisible());
+    this.extraLife = this.extraLife.filter(life => life.isVisible);
 
+  }
+
+  stop() {
+    clearInterval(this.intervalId)
 
   }
 
@@ -64,85 +61,101 @@ class Game {
     if (this.drawCount % 100) {
       return
     }
-    this.bats.push(new BatHtml(this.ctx));
-    this.graveyard.push(new Gravestone(this.ctx));
-    this.skeletons.push(new Skeleton(this.ctx));
-    this.zombieHorde.push(new Zombie(this.ctx));
-   
+    this.enemies.push(new BatHtml(this.ctx));
+    this.enemies.push(new Skeleton(this.ctx));
+    this.enemies.push(new Zombie(this.ctx));
+    this.graveyards.push(new Gravestone(this.ctx));
+    this.graveyards.push(new GravestoneAfterwork(this.ctx));
+    this.graveyards.push(new GravestoneCeltic(this.ctx));
+    this.extraLife.push(new ExtraLife(this.ctx));
 
-    
-    this.graveyard2.push(new Gravestone2(this.ctx));
-    
+
   }
 
   checkCollisions() {
-    const batCollision = this.bats.some(ob => ob.collide(this.player));
-    const graveStoneCollision = this.graveyard.some(ob => ob.collide(this.player));
-    const graveStoneCollision2 = this.graveyard2.some( ob => ob.collide(this.player));
-    this.bats.some(bat =>{
-      return this.player.dagues.some(dague =>{
-        
-        if (dague.collide(bat)) {
+
+    this.enemies.some(enemy => {
+      return this.player.dagues.some(dague => {
+
+        if (dague.collide(enemy)) {
           dague.isVisible = false
-          bat.receiveDamage(1)
-          this.hurtingCreature.play()
-          this.checkDeaths()
+          enemy.receiveDamage(1)
+
+
         }
       })
     });
 
-     this.skeletons.some(skeleton =>{
-      return this.player.dagues.some(dague =>{
-        
-        if (dague.collide(skeleton)) {
-          dague.isVisible = false
-          skeleton.receiveDamage(1)
-          this.hurtingSkeleton.play()
-          this.checkDeaths()
-        }
-      })
-    });
+    this.graveyards.some(grave => {
+      return this.player.dagues.some(dague => {
 
-    this.zombieHorde.some(zombie =>{
-      return this.player.dagues.some(dague =>{
-        
-        if (dague.collide(zombie)) {
-          dague.isVisible = false
-          zombie.receiveDamage(1)
-          this.hurtingZombie.play()
-          this.checkDeaths()
-        }
-      })
-    });
-
-    this.graveyard.some(grave =>{
-      return this.player.dagues.some(dague =>{
-        
         if (dague.collide(grave)) {
           dague.isVisible = false
-         
+
         }
       })
     });
 
+    this.enemies.some(enemy => {
+      if (enemy.collide(this.player)) {
+        this.hurtingPlayer.play();
+        this.player.receiveDamage(1)
+        this.checkPlayerStatus()
 
-    if (batCollision) {
-      this.hurtingPlayer.play();
-     this.player.receiveDamage(1);
+      }
+    });
 
-    }
+    this.graveyards.some(grave => {
+      if (grave.collide(this.player)) {
+        this.stumbling.play();
+        this.player.receiveDamage(1)
+        this.checkPlayerStatus()
 
-    else if (graveStoneCollision) {
-      this.stumbling.play();
-     this.player.receiveDamage(1);
 
-    }
+      }
+    });
+
+    this.extraLife.some(life => {
+      if (life.collide(this.player)) {
+        life.isVisible = false
+        this.healingsound.play();
+        this.player.heal()
+        this.checkPlayerStatus()
+
+      }
+    });
+
   }
 
-  checkDeaths(){
-    
-    this.scorePoints()
-    this.scorePointsAudio.play()
+  checkPlayerStatus(){
+
+    if(this.player.receiveDamage){
+      this.scoreLife.img.frameIndex++
+    }
+
+    else if(this.player.heal){
+      this.scoreLife.img.frameIndex--
+    }
+
+    else if(this.player.health <= 0){
+      this.gameOver()
+    }
+   
+
+console.log(this.player.health)
+
+  }
+
+  checkDeaths() {
+    this.enemies.forEach(enemy => {
+      if (enemy.health <= 0) {
+        this.scorePoints()
+        this.scorePointsAudio.play()
+      }
+    });
+
+
+
   }
 
   scorePoints() {
@@ -154,27 +167,46 @@ class Game {
     this.background.draw();
     this.player.draw();
     this.score.draw();
+    this.scoreLife.draw();
+    this.enemies.forEach(enemy => enemy.draw());
+    this.graveyards.forEach(grave => grave.draw());
+    this.extraLife.forEach(life => life.draw())
 
-    this.graveyard2.forEach( ob => ob.draw());
-    this.graveyard.forEach(grave => grave.draw());
-    this.bats.forEach(bat => bat.draw());
-    this.skeletons.forEach(skeleton => skeleton.draw());
-    this.zombieHorde.forEach(zombie => zombie.draw())
-  
 
   }
 
   move() {
     this.background.move();
     this.player.move();
-    this.graveyard.forEach(ob => ob.move());
-    this.graveyard2.forEach( ob => ob.move());
-    this.bats.forEach(ob => ob.move());
-    this.skeletons.forEach(skeleton => skeleton.move())
-    this.zombieHorde.forEach(zombie => zombie.move())
-    
+    this.enemies.forEach(enemy => enemy.move());
+    this.graveyards.forEach(grave => grave.move());
+    this.extraLife.forEach(life => life.move())
+
   }
 
+  gameOver() {
+
+    this.stop()
+
+    this.ctx.font = "800 80px sans-serif";
+    this.ctx.textAlign = "center";
+    this.ctx.fillText(
+      "GAME",
+      this.ctx.canvas.width / 2,
+      this.ctx.canvas.height / 3
+    );
+    this.ctx.font = " 800 italic 80px sans-serif";
+    this.ctx.textAlign = "center";
+    this.ctx.fillStyle = "#870007";
+    this.ctx.fillText(
+      "OVER",
+      this.ctx.canvas.width / 2,
+      this.ctx.canvas.height / 2
+    );
+
+
+
+  }
 
 
 }

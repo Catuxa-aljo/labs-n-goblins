@@ -1,16 +1,16 @@
-class Gravestone2 {
-    constructor(ctx, y, w, h) {
+class GravestoneAfterwork {
+    constructor(ctx) {
         this.ctx = ctx;        
-        this.dist = Math.random() * (5000 - 500) + 500;
-        this.x = Math.random() > 0.5 ? 0 - this.dist : this.dist
-        this.y = y;
-        this.w = w;
-        this.h = h;
+        this.dist = Math.random() * (8000 - 1000) + 1000;
+        this.x = Math.random() > 0.5 ? 0 - this.dist : this.dist       
+        this.y = 420;
+        this.w = 83;
+        this.h = 100;
 
         this.vx = -1
 
         this.img = this.img = new Image();
-        this.img.src = './assets/img/graveyard2.png';
+        this.img.src = './assets/img/graveyard-afterwork.png';
     }
 
     draw() {
@@ -48,3 +48,5 @@ class Gravestone2 {
        
         
     }
+
+    
