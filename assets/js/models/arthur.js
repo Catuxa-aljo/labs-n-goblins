@@ -110,8 +110,8 @@ class Player {
         
     }
 
-    heal(){
-        this.health ++;
+    heal(points){
+        this.health += points;
         
     }
    

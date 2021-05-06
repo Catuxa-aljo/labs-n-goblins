@@ -101,6 +101,7 @@ class Game {
       if (enemy.collide(this.player)) {
         this.hurtingPlayer.play();
         this.player.receiveDamage(1)
+        this.scoreLife.img.frameIndex++
         this.checkPlayerStatus()
 
       }
@@ -120,7 +121,8 @@ class Game {
       if (life.collide(this.player)) {
         life.isVisible = false
         this.healingsound.play();
-        this.player.heal()
+        this.player.heal(1)
+        this.scoreLife.img.frameIndex--
         this.checkPlayerStatus()
 
       }
@@ -129,17 +131,11 @@ class Game {
   }
 
   checkPlayerStatus(){
-    if(this.player.heal){
-      this.scoreLife.img.frameIndex-1
-    }
+    
 
-    if(this.player.receiveDamage){
-      this.scoreLife.img.frameIndex++
-    }
+     
 
-  
-
-    else if(this.player.health <= 0){
+    if(this.player.health <= 0){
       this.gameOver()
     }
    
