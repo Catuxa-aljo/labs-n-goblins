@@ -2,7 +2,7 @@ class Skeleton{
     constructor(ctx){
         
             this.ctx = ctx
-            this.dist = Math.random() * (5000 - 500) + 500;
+            this.dist = Math.random() * (8000 - 1000) + 1000;
             this.x = Math.random() > 0.5 ? 0 - this.dist : this.dist
             this.y = 360;
             this.w = 103;
@@ -31,7 +31,9 @@ class Skeleton{
             this.animate();
             this.img.drawCount = 0
         }
-
+        const life = new MonsterLife(this.ctx, this.x , this.y - 10, this.health, 10 )
+        life.draw()
+        life.updateLifeBar(this.health)
 
         this.ctx.drawImage(
             this.img,

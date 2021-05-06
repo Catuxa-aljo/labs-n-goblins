@@ -6,6 +6,7 @@ class Game {
     canvas.width = 800;
     this.drawCount = 0
     this.ctx = canvas.getContext("2d");
+    this.interface = new Interface(this.ctx);
     this.background = new Background(this.ctx);
     this.player = new Player(this.ctx);
     this.score = new Score(this.ctx);
@@ -128,14 +129,15 @@ class Game {
   }
 
   checkPlayerStatus(){
+    if(this.player.heal){
+      this.scoreLife.img.frameIndex-1
+    }
 
     if(this.player.receiveDamage){
       this.scoreLife.img.frameIndex++
     }
 
-    else if(this.player.heal){
-      this.scoreLife.img.frameIndex--
-    }
+  
 
     else if(this.player.health <= 0){
       this.gameOver()
@@ -166,8 +168,10 @@ console.log(this.player.health)
   draw() {
     this.background.draw();
     this.player.draw();
+    this.interface.draw();
     this.score.draw();
     this.scoreLife.draw();
+    
     this.enemies.forEach(enemy => enemy.draw());
     this.graveyards.forEach(grave => grave.draw());
     this.extraLife.forEach(life => life.draw())

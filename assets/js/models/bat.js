@@ -8,7 +8,7 @@ class BatHtml{
         this.h = 71;
 
         this.health = 1;
-        this.life = new MonsterLife(this.ctx)
+        
         this.vx = -1;
         this.canReceiveDamage = true
         
@@ -24,7 +24,9 @@ class BatHtml{
     }
 
     enemyLife(){
-
+        if(this.life - 1){
+            this.life.w/5
+        }
 
     }
 
@@ -36,7 +38,10 @@ class BatHtml{
             this.img.drawCount = 0
         }
 
-        this.life(this.x,this.y, 20, 50)
+        const life = new MonsterLife(this.ctx, this.x + 10 , this.y - 10, 100, 10 )
+        life.draw()
+
+
         this.ctx.drawImage(
             this.img,
             this.img.frameIndex * this.img.width / this.img.frames,

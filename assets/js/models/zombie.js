@@ -1,7 +1,7 @@
 class Zombie{
     constructor(ctx){
         this.ctx = ctx
-            this.dist = Math.random() * (3000 - 500) + 500;
+            this.dist = Math.random() * (8000 - 1000) + 1000;
             this.x = Math.random() > 0.5 ? 0 - this.dist : this.dist
             this.y = 370;
             this.w = 126;
@@ -30,7 +30,9 @@ class Zombie{
             this.animate();
             this.img.drawCount = 0
         }
-
+        const life = new MonsterLife(this.ctx, this.x , this.y - 10, 100, 10 )
+        life.draw()
+       
 
         this.ctx.drawImage(
             this.img,
@@ -63,7 +65,8 @@ class Zombie{
     receiveDamage(damage){
         this.hurtingZombie.play()
         this.health = this.health - damage;   
-        this.x = this.x + 20     
+        this.x = this.x + 20  
+           
         
         
     }

@@ -2,25 +2,27 @@ body{
     background-color: #47194f;
     background-image: url('img/pattern.png');
     background-repeat: repeat;
+    margin: auto;
     
 }
 
-div{margin: auto; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;}
+div{margin: auto; width: 100%; display: flex; text-align: center;}
 
 canvas{
-    width: 800px;
-    height: 600px;
+    margin: auto;
     border: dotted thin #000;
     z-index: 1;
-    position: relative;
+    position: absolute;
+   
     
 }
 
 #init-credit{
+    margin: auto;
     width: 800px;
     height: 600px;
     z-index: 80;
-    position: relative;
+    position: absolute;
     background-image:url('./img/initial-credits.png'); background-repeat: no-repeat;
 }
 

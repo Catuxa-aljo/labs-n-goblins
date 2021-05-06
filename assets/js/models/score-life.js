@@ -2,13 +2,14 @@ class ScoreLife{
     constructor(ctx){
         this.ctx = ctx;
       
-        this.w = 60;
-        this.h = 20;
+        this.w = 80;
+        this.h = 27;
         this.x = 0 + this.w
         this.y = 0 + this.h;
        
-        this.img = this.img = new Image();
+        this.img = new Image();
         this.img.src = './assets/img/score-life.png';
+  
 
         this.img.frames = 7;
         this.img.frameIndex = 0;

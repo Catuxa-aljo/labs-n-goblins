@@ -14,7 +14,7 @@ class Score{
             this.ctx.fillStyle = 'white',
             this.ctx.textAlign = "left";
             this.ctx.fillText(
-                `Learning points: ${this.points}`, this.ctx.canvas.width / 2 - 40 , 50
+                `Learning points: ${this.points}`, this.ctx.canvas.width / 2 - 40 , 60
             )
             }
 
