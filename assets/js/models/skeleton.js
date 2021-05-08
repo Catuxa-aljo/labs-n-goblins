@@ -17,9 +17,9 @@ class Skeleton{
             
     
             this.img = new Image();
-            this.img.src = './assets/img/skeleton-html.png';
+            this.img.src = './assets/img/skeleton-html-2.png';
             this.img.drawCount = 0;
-            this.img.frames = 4;
+            this.img.frames = 5;
             this.img.frameIndex = 0;
 
             this.hurtingSkeleton = new Audio('./assets/sounds/hurting-skeleton.mp3')
@@ -57,7 +57,7 @@ class Skeleton{
             this.img,
             this.img.frameIndex * this.img.width / this.img.frames,
             0,
-            this.img.width / 4,
+            this.img.width / 5,
             this.img.height,
             this.x,
             this.y,
@@ -70,10 +70,12 @@ class Skeleton{
 
     animate(){
         this.img.frameIndex++
-
-        if (this.img.frameIndex >= this.img.frames) {
+        
+        if (this.img.frameIndex >= this.img.frames-1) {
           this.img.frameIndex = 0
         }
+
+        
     }
 
     move(){

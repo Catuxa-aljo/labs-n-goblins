@@ -3,12 +3,12 @@ class Interface{
         this.ctx = ctx;
       
         this.w = this.ctx.canvas.width;
-        this.h = 134;
+        this.h = this.ctx.canvas.height;
         this.x = 0 
         this.y = 0 ;
        
         this.img = new Image();
-        this.img.src = './assets/img/interface.png';
+        this.img.src = './assets/img/interface-2.png';
   
 
     

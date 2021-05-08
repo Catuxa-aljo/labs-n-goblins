@@ -22,9 +22,9 @@ class Player {
 
         this.jumpSound = new Audio('./assets/sounds/jump.wav')
         this.sound = new Audio('./assets/sounds/dague.wav')
-        this.auch = new Audio('./assets/sounds/hurt.mp3')           
-             
-        
+        this.auch = new Audio('./assets/sounds/hurt.mp3')
+
+
 
         this.dagues = [];
 
@@ -32,14 +32,14 @@ class Player {
             right: false,
             left: false,
             up: false,
-           
+
 
         }
 
         this.canReceiveDamage = true
         this.canShoot = true
 
-     
+
 
         this.setListeners()
     }
@@ -69,81 +69,86 @@ class Player {
         this.dagues.forEach(dague => dague.draw())
     }
 
-    move(){
-        
-        this.applyActions() 
+    move() {
+
+        this.applyActions()
         this.x += this.vx
-        this.y += this.vy          
+        this.y += this.vy
         if (this.isJumping()) {
             this.vy += this.g
-          }   
-               
+        }
+
         else if (!this.isJumping()) {
             this.vy = 0
             this.y = this.ground
-          }
-      
+        }
+
         this.dagues.forEach(dague => dague.move())
 
     }
 
     isJumping() {
         return this.y < this.ground
-      }
 
-    attack(){
-        const dague = new Dague(this.ctx, this.x + this.w, this.y + this.h / 2)
-        if(this.canShoot){
-        this.sound.play()
-        this.dagues.push(dague)        
-        this.canShoot = false
-      }
-      setTimeout(() => {
-        this.canShoot = true
-    }, 1000)        
-        
     }
 
-    receiveDamage(damage){
+    attack() {
+        const dague = new Dague(this.ctx, this.x + this.w, this.y + this.h / 2)
+        if (this.canShoot) {
+            this.sound.play()
+            this.dagues.push(dague)
+            this.canShoot = false
+        }
+        setTimeout(() => {
+            this.canShoot = true
+        }, 1000)
+
+    }
+
+    receiveDamage(damage) {
         this.auch.play()
         this.health = this.health - damage;
-        this.x = this.x - 50   
-        this.y = this.y - 50   
-        console.log(this.health) 
-        
-    }
-
-    heal(points){
-        if(this.health < 6){
-        this.health += points;}
+        this.x = this.x - 50
+        this.y = this.y - 50
         console.log(this.health)
-        
-    }
-   
 
-    animate() {     
+    }
+
+    heal(points) {
+        if (this.health < 6) {
+            this.health += points;
+        }
+        console.log(this.health)
+
+    }
+
+
+    animate() {
         this.img.frameIndex++
-        
-        if(this.vx === 0){    
-             
+
+        if (this.vx === 0) {
+
             if (this.img.frameIndex >= 4) {
-                this.img.frameIndex = 0}
+                this.img.frameIndex = 0
+            }
         }
 
-        else if (this.vx !== 0){  
-              
-             if (this.img.frameIndex >= this.img.frames-1) {
-                    this.img.frameIndex = 4
-                }
+        else if (this.vx !== 0) {
+
+            if (this.img.frameIndex >= this.img.frames - 1) {
+                this.img.frameIndex = 4
+
+            }
+           
         }
 
-        else if(this.y < this.ground){
-            this.img.frameIndex = 9
+        else if (this.isJumping) {
+            this.img.frameIndex = 8
         }
     }
 
-    onKeyEvent(keyCode, action){
-        switch (keyCode){
+    onKeyEvent(keyCode, action) {
+        switch (keyCode) {
             case LEFT:
                 this.actions.left = action;
                 break;
@@ -164,42 +169,42 @@ class Player {
     }
 
     setListeners() {
-        document.onkeydown = e => this.onKeyEvent(e.keyCode,true)
-        document.onkeyup = e => this.onKeyEvent(e.keyCode,false)
-      }
+        document.onkeydown = e => this.onKeyEvent(e.keyCode, true)
+        document.onkeyup = e => this.onKeyEvent(e.keyCode, false)
+    }
 
-      applyActions(){
-         
+    applyActions() {
+
         if (this.actions.left) {
             this.vx = - 2
         } else if (this.actions.right) {
             this.vx = 2
 
-        }else if (this.actions.up){
+        } else if (this.actions.up) {
             this.vy = -10
 
-        } else{
+        } else {
             this.vx = 0
         }
-      }
+    }
 
-      collide(el) {
+    collide(el) {
         const collideX = el.x + el.w > this.x && el.x < this.x + this.w;
         const collideY = el.y < this.y + this.h && el.y + el.h > this.y;
 
-        if (collideX && collideY && this.canReceiveDamage){
+        if (collideX && collideY && this.canReceiveDamage) {
 
-        
-         this.canReceiveDamage = false
-        
-        setTimeout(() => {
-            this.canReceiveDamage = true
-        }, 5000)
 
-        return collideX && collideY;
+            this.canReceiveDamage = false
+
+            setTimeout(() => {
+                this.canReceiveDamage = true
+            }, 5000)
+
+            return collideX && collideY;
+        }
+
+        return false
+
     }
-    
-    return false
-    
-  }
 }

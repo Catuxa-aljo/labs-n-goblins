@@ -4,8 +4,8 @@ class ScoreLife{
       
         this.w = 80;
         this.h = 27;
-        this.x = 0 + this.w
-        this.y = 0 + this.h;
+        this.x = 20 + this.w
+        this.y = 50;
        
         this.img = new Image();
         this.img.src = './assets/img/score-life.png';

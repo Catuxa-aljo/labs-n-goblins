@@ -13,6 +13,9 @@ class Game {
     this.domeEvil = new EvilDome(this.ctx)
     this.score = new Score(this.ctx);
     this.scoreLife = new ScoreLife(this.ctx)
+
+    this.gameOverImg = new GameOver(this.ctx);
+
     this.graveyards = [];
     this.enemies = []
     this.extraLife = []
@@ -221,13 +224,12 @@ class Game {
   draw() {
     this.background.draw();
     this.player.draw();
-    this.interface.draw();
-    this.score.draw();
-    this.scoreLife.draw();
-
     this.enemies.forEach(enemy => enemy.draw());
     this.graveyards.forEach(grave => grave.draw());
     this.extraLife.forEach(life => life.draw())
+    this.interface.draw();
+    this.score.draw();
+    this.scoreLife.draw();
 
   }
 
@@ -247,21 +249,8 @@ class Game {
     this.music.pause()
     this.finalBattle.pause()
     this.gameoverSound.play()
-    this.ctx.font = "800 80px sans-serif";
-    this.ctx.textAlign = "center";
-    this.ctx.fillText(
-      "GAME",
-      this.ctx.canvas.width / 2,
-      this.ctx.canvas.height / 3
-    );
-    this.ctx.font = " 800 italic 80px sans-serif";
-    this.ctx.textAlign = "center";
-    this.ctx.fillStyle = "#870007";
-    this.ctx.fillText(
-      "OVER",
-      this.ctx.canvas.width / 2,
-      this.ctx.canvas.height / 2
-    );
+    this.gameOverImg.draw() 
+    
 
 
 
