@@ -8,7 +8,11 @@ class EvilDome{
         this.y = 260;
         this.w = 281
         this.h = 240
+
         this.health = 12;
+        this.lifew = 8 * this.health;
+        this.lifew2 = 96;
+        this.lifeh = 8;
         
         this.vx = -3;
         this.vy = 0;
@@ -39,6 +43,22 @@ class EvilDome{
             this.img.drawCount = 0
         }
 
+        this.ctx.fillStyle = '#5d0926'
+        this.ctx.fillRect(
+            this.x + 50,
+            this.y,
+            this.lifew2,
+            this.lifeh
+        )
+
+        this.ctx.fillStyle = '#ff3066'
+        this.ctx.fillRect(
+            this.x + 50,
+            this.y,
+            this.lifew,
+            this.lifeh
+        )
+
 
         this.ctx.drawImage(
             this.img,
@@ -67,11 +87,9 @@ class EvilDome{
     move(){
      
         this.x += this.vx 
-
-        if(this.x <= this.ctx.canvas.width/2){
+        if (this.x <= this.ctx.canvas.width/2) {
             this.x -= this.vx
         }
-   
         this.deathFires.forEach(fire => fire.move()) 
 
     }
@@ -79,15 +97,20 @@ class EvilDome{
     attack(){
         
         const fire = new DeathFire(this.ctx, this.x , Math.random() * (this.ctx.canvas.height - this.h))
-        this.shootSound.play()
-        this.deathFires.push(fire) 
-             
+       if(this.canShoot){ this.shootSound.play()
+        this.deathFires.push(fire)
+        this.canShoot = false
+        setTimeout(() => {
+           this.canShoot = true
+       },1000) }
+              
     }
 
     receiveDamage(damage){
         this.hurtingDom.play()       
         this.health = this.health - damage;   
         this.x = this.x + 20
+        this.lifew = this.lifew - 8
           
         
     }

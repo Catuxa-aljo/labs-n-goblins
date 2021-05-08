@@ -108,13 +108,15 @@ class Player {
         this.auch.play()
         this.health = this.health - damage;
         this.x = this.x - 50   
-        this.y = this.y - 50    
+        this.y = this.y - 50   
+        console.log(this.health) 
         
     }
 
     heal(points){
-        if(this.heath < 6){
+        if(this.health < 6){
         this.health += points;}
+        console.log(this.health)
         
     }
    

@@ -8,7 +8,8 @@ class Zombie{
             this.h = 148;
     
             this.health = 4;
-            this.lifew = 40 * this.health;
+            this.lifew = 30 * this.health;
+            this.lifew2 = 30 * this.health;
             this.lifeh = 8;
     
             this.vx = -3;
@@ -34,6 +35,15 @@ class Zombie{
         }
         //const life = new MonsterLife(this.ctx, this.x , this.y - 10, 100, 10 )
         //life.draw()
+
+        
+        this.ctx.fillStyle = '#5d0926'
+        this.ctx.fillRect(
+            this.x + 20,
+            this.y,
+            this.lifew2,
+            this.lifeh
+        )
 
         this.ctx.fillStyle = '#ff3066'
         this.ctx.fillRect(
@@ -76,10 +86,8 @@ class Zombie{
         this.hurtingZombie.play()
         this.health = this.health - damage;   
         this.x = this.x + 20  
-        this.lifew = this.lifew - this.lifew/this.health  
-           
-        
-        
+        this.lifew = this.lifew - this.lifew/this.health       
+               
     }
 
     collide(el) {

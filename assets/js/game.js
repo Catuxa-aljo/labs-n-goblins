@@ -38,12 +38,12 @@ class Game {
       this.addEnemy()
       this.checkCollisions()
       this.checkDeaths()
-      this.checkPlayerStatus()     
-      
+      this.checkPlayerStatus()
+
 
       if (this.drawCount++ > 100000) {
         this.drawCount = 0;
-        
+
       }
 
     }, 1000 / 60)
@@ -52,7 +52,7 @@ class Game {
   clear() {
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.heigth);
     this.enemies = this.enemies.filter(enemy => enemy.isVisible()) &&
-    this.enemies.filter(enemy => enemy.health > 0);
+      this.enemies.filter(enemy => enemy.health > 0);
     this.player.dagues = this.player.dagues.filter(dague => dague.isVisible);
     this.domeEvil.deathFires = this.domeEvil.deathFires.filter(fire => fire.isVisible)
     this.graveyards = this.graveyards.filter(grave => grave.isVisible());
@@ -77,7 +77,7 @@ class Game {
     this.graveyards.push(new GravestoneAfterwork(this.ctx));
     this.graveyards.push(new GravestoneCeltic(this.ctx));
     this.extraLife.push(new ExtraLife(this.ctx));
-    
+
 
   }
 
@@ -94,17 +94,18 @@ class Game {
       })
     });
 
-    if(this.domeEvil.isVisible) {
+    if (this.domeEvil.isVisible) {
       this.player.dagues.some(dague => {
-      if (dague.collide(this.domeEvil)){
-        dague.isVisible = false
-        this.domeEvil.receiveDamage(1)
-        console.log(this.domeEvil.health)
-      }
-    })}
+        if (dague.collide(this.domeEvil)) {
+          dague.isVisible = false
+          this.domeEvil.receiveDamage(1)
+          console.log(this.domeEvil.health)
+        }
+      })
+    }
 
     this.domeEvil.deathFires.some(fire => {
-      if (fire.collide(this.player)){
+      if (fire.collide(this.player)) {
 
         fire.isVisible = false
         this.player.receiveDamage(2)
@@ -120,7 +121,7 @@ class Game {
 
         if (dague.collide(grave)) {
           dague.isVisible = false
-        
+
         }
       })
     });
@@ -130,44 +131,48 @@ class Game {
         this.hurtingPlayer.play();
         this.player.receiveDamage(1)
         this.scoreLife.img.frameIndex++
-      
+
       }
     });
 
-    
+
 
     this.graveyards.some(grave => {
       if (grave.collide(this.player)) {
         this.stumbling.play();
         this.player.receiveDamage(1)
         this.scoreLife.img.frameIndex++
-       
+
       }
     });
 
-   if(this.domeEvil.isVisible && this.domeEvil.collide(this.player)){
-     this.player.receiveDamage(2)
-    
-   }
+    if (this.domeEvil.isVisible && this.domeEvil.collide(this.player)) {
+      this.player.receiveDamage(2)
+      this.scoreLife.img.frameIndex++
+      this.scoreLife.img.frameIndex++
+
+    }
 
     this.extraLife.some(life => {
-      if (life.collide(this.player)) {
+      if (life.collide(this.player) && this.player.health < 6) {
         life.isVisible = false
         this.healingsound.play();
         this.player.heal(1)
-        this.scoreLife.img.frameIndex--
-        
+        if (this.scoreLife.img.frameIndex >= 0 && this.scoreLife.img.frameIndex < 5) {
+          this.scoreLife.img.frameIndex--
+        }
+        console.log(this.player.health)
       }
     });
 
   }
 
-  checkPlayerStatus(){    
-    
-    if(this.player.health <= 0){
+  checkPlayerStatus() {
+
+    if (this.player.health <= 0) {
       this.gameOver()
     }
-   
+
 
   }
 
@@ -180,38 +185,38 @@ class Game {
     });
 
     this.domeEvil.isVisible = false
-    if(this.score.points === 20){
-        
-      this.domeEvil.isVisible = true 
-      this.domeEvil.draw(); 
+    if (this.score.points === 5) {
+
+      this.domeEvil.isVisible = true
+      this.domeEvil.draw();
       this.domeEvil.move();
       this.addFinalBoss();
     }
 
-      if(this.domeEvil.health <= 0){
-        this.victorius()
-      }
-   
+    if (this.domeEvil.health <= 0) {
+      this.victorius()
+    }
+
   }
 
   scorePoints() {
     this.score.points++
-    
+
 
   }
 
-  addFinalBoss(){    
+  addFinalBoss() {
     this.music.pause()
-    this.finalBattle.play()  
-   setTimeout(() =>{
-     this.domeEvil.attack()
-   }, 1000) 
-   this.graveyards = [];
-   this.enemies = []
-   this.extraLife = []
- 
-    
-  } 
+    this.finalBattle.play()
+    setTimeout(() => {
+      this.domeEvil.attack()
+    }, 1000)
+    this.graveyards = [];
+    this.enemies = []
+    this.extraLife = []
+
+
+  }
 
   draw() {
     this.background.draw();
@@ -219,7 +224,7 @@ class Game {
     this.interface.draw();
     this.score.draw();
     this.scoreLife.draw();
-   
+
     this.enemies.forEach(enemy => enemy.draw());
     this.graveyards.forEach(grave => grave.draw());
     this.extraLife.forEach(life => life.draw())
@@ -229,7 +234,7 @@ class Game {
   move() {
     this.background.move();
     this.player.move();
-   
+
     this.enemies.forEach(enemy => enemy.move());
     this.graveyards.forEach(grave => grave.move());
     this.extraLife.forEach(life => life.move())
@@ -268,7 +273,7 @@ class Game {
     this.music.pause()
     this.finalBattle.pause()
     this.victoriusAudio.play()
-   
+
     this.ctx.font = "800 80px sans-serif";
     this.ctx.textAlign = "center";
     this.ctx.fillText(

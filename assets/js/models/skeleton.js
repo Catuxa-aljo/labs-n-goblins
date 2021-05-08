@@ -10,6 +10,7 @@ class Skeleton{
     
             this.health = 3;
             this.lifew = 30 * this.health;
+            this.lifew2 = 30 * this.health;
             this.lifeh = 8;
     
             this.vx = -3;
@@ -33,9 +34,14 @@ class Skeleton{
             this.animate();
             this.img.drawCount = 0
         }
-        //const life = new MonsterLife(this.ctx, this.x , this.y - 10, this.health, 10 )
-        //life.draw()
-        //life.updateLifeBar(this.health)
+      
+        this.ctx.fillStyle = '#5d0926'
+        this.ctx.fillRect(
+            this.x + 20,
+            this.y,
+            this.lifew2,
+            this.lifeh
+        )
 
         this.ctx.fillStyle = '#ff3066'
         this.ctx.fillRect(
@@ -45,6 +51,7 @@ class Skeleton{
             this.lifeh
         )
 
+      
 
         this.ctx.drawImage(
             this.img,
