@@ -21,7 +21,8 @@ class Player {
         this.img.frameIndex = 0;
 
         this.jumpSound = new Audio('./assets/sounds/jump.wav')
-        this.sound = new Audio('./assets/sounds/dague.wav')      
+        this.sound = new Audio('./assets/sounds/dague.wav')
+        this.auch = new Audio('./assets/sounds/hurt.mp3')           
              
         
 
@@ -65,7 +66,7 @@ class Player {
             this.h
         )
 
-        this.dagues.forEach(b => b.draw())
+        this.dagues.forEach(dague => dague.draw())
     }
 
     move(){
@@ -104,6 +105,7 @@ class Player {
     }
 
     receiveDamage(damage){
+        this.auch.play()
         this.health = this.health - damage;
         this.x = this.x - 50   
         this.y = this.y - 50    
@@ -111,7 +113,8 @@ class Player {
     }
 
     heal(points){
-        this.health += points;
+        if(this.heath < 6){
+        this.health += points;}
         
     }
    

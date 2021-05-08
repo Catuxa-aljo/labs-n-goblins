@@ -8,6 +8,8 @@ class Zombie{
             this.h = 148;
     
             this.health = 4;
+            this.lifew = 40 * this.health;
+            this.lifeh = 8;
     
             this.vx = -3;
             
@@ -30,8 +32,16 @@ class Zombie{
             this.animate();
             this.img.drawCount = 0
         }
-        const life = new MonsterLife(this.ctx, this.x , this.y - 10, 100, 10 )
-        life.draw()
+        //const life = new MonsterLife(this.ctx, this.x , this.y - 10, 100, 10 )
+        //life.draw()
+
+        this.ctx.fillStyle = '#ff3066'
+        this.ctx.fillRect(
+            this.x + 20,
+            this.y,
+            this.lifew,
+            this.lifeh
+        )
        
 
         this.ctx.drawImage(
@@ -66,6 +76,7 @@ class Zombie{
         this.hurtingZombie.play()
         this.health = this.health - damage;   
         this.x = this.x + 20  
+        this.lifew = this.lifew - this.lifew/this.health  
            
         
         

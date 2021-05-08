@@ -1,5 +1,5 @@
-class BatHtml{
-    constructor(ctx){
+class BatHtml {
+    constructor(ctx) {
         this.ctx = ctx;
         this.x = this.ctx.canvas.width;
         this.dist = Math.random() * (400 - 20) + 20;
@@ -8,29 +8,33 @@ class BatHtml{
         this.h = 71;
 
         this.health = 1;
-        
+
+        this.lifew = 50 * this.health
+        this.lifeh = 8
+
+
         this.vx = -1;
         this.canReceiveDamage = true
-        
+
         this.img = new Image();
         this.img.src = './assets/img/bat-html.png';
         this.img.drawCount = 0;
         this.img.frames = 7;
         this.img.frameIndex = 0;
-       
+
         this.hurtingCreature = new Audio('./assets/sounds/hurting-creature.wav')
 
 
     }
 
-    enemyLife(){
-        if(this.life - 1){
-            this.life.w/5
+    enemyLife() {
+        if (this.life - 1) {
+            this.life.w / 5
         }
 
     }
 
-    draw(){
+    draw() {
 
         this.img.drawCount++
         if (this.img.drawCount >= 10) {
@@ -38,8 +42,16 @@ class BatHtml{
             this.img.drawCount = 0
         }
 
-        const life = new MonsterLife(this.ctx, this.x + 10 , this.y - 10, 100, 10 )
-        life.draw()
+        //const life = new MonsterLife(this.ctx, this.x + 10 , this.y - 10, 100, 10 )
+        //life.draw()
+
+        this.ctx.fillStyle = '#ff3066'
+        this.ctx.fillRect(
+            this.x + 20,
+            this.y,
+            this.lifew,
+            this.lifeh
+        )
 
 
         this.ctx.drawImage(
@@ -57,54 +69,51 @@ class BatHtml{
 
     }
 
-    animate(){
+    animate() {
         this.img.frameIndex++
 
         if (this.img.frameIndex >= this.img.frames) {
-          this.img.frameIndex = 0
+            this.img.frameIndex = 0
         }
     }
 
-    move(){
+    move() {
 
         this.x += this.vx
     }
 
-    receiveDamage(damage){
+    receiveDamage(damage) {
         this.hurtingCreature.play()
-        this.health = this.health - damage;   
+        this.health = this.health - damage;
         this.x = this.x + 20
-       
-        
-        
-        
+
     }
 
     collide(el) {
-            const collideX = el.x + el.w > this.x && el.x < this.x + this.w;
-            const collideY = el.y < this.y + this.h && el.y + el.h > this.y;
+        const collideX = el.x + el.w > this.x && el.x < this.x + this.w;
+        const collideY = el.y < this.y + this.h && el.y + el.h > this.y;
 
-            if (collideX && collideY && this.canReceiveDamage){
+        if (collideX && collideY && this.canReceiveDamage) {
 
-            
-             this.canReceiveDamage = false
-            
+
+            this.canReceiveDamage = false
+
             setTimeout(() => {
                 this.canReceiveDamage = true
             }, 5000)
 
             return collideX && collideY;
         }
-        
-        return false
-        
-      }
 
-      
-    isVisible(){
+        return false
+
+    }
+
+
+    isVisible() {
         return (
             this.x < this.ctx.canvas.width * 2 &&
             this.x > 0 - this.ctx.canvas.width
-          )
+        )
     }
 }

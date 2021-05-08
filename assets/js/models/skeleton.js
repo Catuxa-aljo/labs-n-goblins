@@ -9,6 +9,8 @@ class Skeleton{
             this.h = 150;
     
             this.health = 3;
+            this.lifew = 30 * this.health;
+            this.lifeh = 8;
     
             this.vx = -3;
             
@@ -31,9 +33,18 @@ class Skeleton{
             this.animate();
             this.img.drawCount = 0
         }
-        const life = new MonsterLife(this.ctx, this.x , this.y - 10, this.health, 10 )
-        life.draw()
-        life.updateLifeBar(this.health)
+        //const life = new MonsterLife(this.ctx, this.x , this.y - 10, this.health, 10 )
+        //life.draw()
+        //life.updateLifeBar(this.health)
+
+        this.ctx.fillStyle = '#ff3066'
+        this.ctx.fillRect(
+            this.x + 20,
+            this.y,
+            this.lifew,
+            this.lifeh
+        )
+
 
         this.ctx.drawImage(
             this.img,
@@ -66,7 +77,8 @@ class Skeleton{
     receiveDamage(damage){
         this.hurtingSkeleton.play()
         this.health = this.health - damage;   
-        this.x = this.x + 10    
+        this.x = this.x + 10 
+        this.lifew = this.lifew - this.lifew/this.health  
        
         
         
