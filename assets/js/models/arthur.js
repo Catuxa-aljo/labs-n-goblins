@@ -139,12 +139,14 @@ class Player {
                 this.img.frameIndex = 4
 
             }
+
+            else if (this.y < this.ground) {
+                this.img.frameIndex = 8
+            }
            
         }
 
-        else if (this.isJumping) {
-            this.img.frameIndex = 8
-        }
+       
     }
 
     onKeyEvent(keyCode, action) {

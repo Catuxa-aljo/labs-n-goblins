@@ -15,6 +15,7 @@ class Game {
     this.scoreLife = new ScoreLife(this.ctx)
 
     this.gameOverImg = new GameOver(this.ctx);
+    this.winImg = new Win(this.ctx);
 
     this.graveyards = [];
     this.enemies = []
@@ -262,22 +263,7 @@ class Game {
     this.music.pause()
     this.finalBattle.pause()
     this.victoriusAudio.play()
-
-    this.ctx.font = "800 80px sans-serif";
-    this.ctx.textAlign = "center";
-    this.ctx.fillText(
-      "UOHHH",
-      this.ctx.canvas.width / 2,
-      this.ctx.canvas.height / 3
-    );
-    this.ctx.font = " 800 italic 80px sans-serif";
-    this.ctx.textAlign = "center";
-    this.ctx.fillStyle = "#870007";
-    this.ctx.fillText(
-      "CONGRATS",
-      this.ctx.canvas.width / 2,
-      this.ctx.canvas.height / 2
-    );
+    this.winImg.draw() 
 
 
 
