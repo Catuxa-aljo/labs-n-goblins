@@ -11,12 +11,35 @@
 
 <body>
 
-    <div>
-       
-        <a id="start-button"><div id="init-credit"></div></a>
-        <canvas id="game" ></canvas>
-    </div>
+    <div id="container">
+ 
+        <div id="init-credit">
+<ul>
+    <li>
+        <a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('how-to','','./assets/img/play-on.png',1)"><img src="./assets/img/play.png" alt=""  id="how-to"></a>
+    </li>
+    <li>
+        <a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('start-button','','./assets/img/start-on.png',1)"><img src="./assets/img/start.png" alt=""  id="start-button"></a>
+    </li>
+    <li>
+        <a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('hall-fame','','./assets/img/hall-on.png',1)"><img src="./assets/img/hall.png" alt=""  id="hall-fame"></a>
+    </li>
+</ul>
 
+        </div>
+        <canvas id="game" class="invisible" ></canvas>
+    <div id="how-you-play" class="invisible">
+        <div id="close-how-to"><a href="" id="close-window">X</a></div>
+        <img src="./assets/img/how-you-play.png" /></div>
+
+        <div id="hall-of-fame" class="invisible">
+            <div id="close-how-to"><a href="" id="close-window">X</a></div>
+            <img src="./assets/img/hall-of-fame.png" /></div>
+    </div>
+    
+    </div>
+ 
+    <script src="./assets/js/scripts.js"></script>
     <script src="./assets/js/commands.js"></script>
     <script src="./assets/js/game-over.js"></script>
     <script src="./assets/js/win.js"></script>

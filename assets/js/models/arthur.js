@@ -133,18 +133,20 @@ class Player {
             }
         }
 
-        else if (this.vx !== 0) {
-
+        else if (this.vx != 0 ) {
+            
             if (this.img.frameIndex >= this.img.frames - 1) {
                 this.img.frameIndex = 4
 
             }
-
-            else if (this.y < this.ground) {
-                this.img.frameIndex = 8
-            }
-           
+                  
         }
+
+        else if(this.vx === 0 && this.isJumping) {
+           
+            this.img.frameIndex = 8
+        
+    }
 
        
     }
