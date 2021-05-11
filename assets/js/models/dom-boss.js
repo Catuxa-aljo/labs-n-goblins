@@ -23,7 +23,7 @@ class EvilDome{
         this.img = new Image();
         this.img.src = './assets/img/evil-dom.png';
         this.img.drawCount = 0;
-        this.img.frames = 12;
+        this.img.frames = 13;
         this.img.frameIndex = 0;
 
         this.deathFires = [];
@@ -45,7 +45,7 @@ class EvilDome{
 
         this.ctx.fillStyle = '#5d0926'
         this.ctx.fillRect(
-            this.x + 50,
+            this.x + 70,
             this.y,
             this.lifew2,
             this.lifeh
@@ -53,7 +53,7 @@ class EvilDome{
 
         this.ctx.fillStyle = '#ff3066'
         this.ctx.fillRect(
-            this.x + 50,
+            this.x + 70,
             this.y,
             this.lifew,
             this.lifeh
@@ -64,7 +64,7 @@ class EvilDome{
             this.img,
             this.img.frameIndex * this.img.width / this.img.frames,
             0,
-            this.img.width / 12,
+            this.img.width / 13,
             this.img.height,
             this.x,
             this.y,
@@ -73,25 +73,6 @@ class EvilDome{
         )
 
         this.deathFires.forEach(fire => fire.draw())
-    }
-
-    animate() {     
-        this.img.frameIndex++
-        
-                    
-             if (this.img.frameIndex >= this.img.frames) {
-                    this.img.frameIndex = 0
-             }
-    }
-
-    move(){
-     
-        this.x += this.vx 
-        if (this.x <= this.ctx.canvas.width/2) {
-            this.x -= this.vx
-        }
-        this.deathFires.forEach(fire => fire.move()) 
-
     }
 
     attack(){
@@ -111,9 +92,49 @@ class EvilDome{
         this.health = this.health - damage;   
         this.x = this.x + 20
         this.lifew = this.lifew - 8
+        this.hurts = true
           
         
     }
+
+    animate() {  
+           
+        if (this.hurts) {
+            this.img.frameIndex = 12
+            this.hurts = false
+        }
+
+        else {
+        this.img.frameIndex++       
+                    
+             if (this.img.frameIndex >= this.img.frames - 1) {
+                    this.img.frameIndex = 0
+             }
+            }
+    
+    }
+
+    move(){
+       
+       this.x += this.vx
+     
+     
+        if(this.x <= 0){
+            this.vx = 3
+        }
+
+        if(this.x >= this.ctx.canvas.width - this.w){
+            this.vx = -3
+        }
+        setInterval(() => {
+           this.vx*2
+        },1000)
+
+        this.deathFires.forEach(fire => fire.move()) 
+
+    }
+
+
 
     collide(el) {
         const collideX = el.x + el.w > this.x && el.x < this.x + this.w;

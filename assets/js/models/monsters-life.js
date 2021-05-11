@@ -8,12 +8,12 @@ class MonsterLife {
      
     }
   
-    draw() {
+    draw(monsterhealth) {
       this.ctx.fillStyle = '#ff3066'
       this.ctx.fillRect(
         this.x,
         this.y,
-        this.w,
+        this.w*monsterhealth,
         this.h
       )
      

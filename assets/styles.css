@@ -11,6 +11,7 @@ body{
 	
 	text-align:center;
     display:flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 	}
@@ -26,10 +27,16 @@ canvas{
 
 #how-you-play{
     z-index: 80;
+    
 }
 
 #hall-of-fame{
     z-index: 80;
+    width: 800px;
+    height: 600px;
+    background-image: url('./img/hall-of-fame.png');
+    background-repeat: repeat;
+   
 }
 
 #close-how-to{
@@ -42,10 +49,11 @@ canvas{
     margin: 10px;
     padding: 20px;
     font-weight: bolder;
-    text-align: right;
+    text-align: center;
     display: flex;
-    justify-content: right;
+    justify-content: center;
 }
+
 #close-how-to a{
     text-decoration: none;
     color: #fff;}
@@ -54,12 +62,44 @@ canvas{
     width: 800px;
     height: 600px;
     background-image: url('./img/initial-credits.gif');
-    background-repeat: repeat;
+    background-repeat: no-repeat;
     display: flex;
     align-content: flex-end;
     justify-content: center;
     align-items: baseline;
+    opacity: 1;
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
 }
+
+#init-credit a:hover {
+    opacity: 0.8;
+  }
+  
+#init-credit a {
+ 
+    opacity: 0.2;
+    transition: opacity .50s ease-in-out;
+    -moz-transition: opacity .50s ease-in-out;
+    -webkit-transition: opacity .50s ease-in-out;
+  }
+
+ #play-again{
+    
+      margin-top: 20px;  
+      -webkit-box-shadow: 5px 5px 15px 5px #1F87FF; 
+      box-shadow: 5px 5px 15px 5px #1F87FF;
+
+  }
+
+  #game-over{
+    width: 800px;
+    height: 600px;
+    background-image: url('./img/game-over.png');
+    background-repeat: no-repeat;
+
+  }
 
 ul{
     margin-top: 400px;
@@ -67,4 +107,7 @@ ul{
     
 }
 
-.invisible{display: none;}
+
+
+.invisible{display: none;
+    transition: display .50s ease-in-out;}

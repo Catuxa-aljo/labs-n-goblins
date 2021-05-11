@@ -7,9 +7,10 @@ class BatHtml {
         this.w = 100;
         this.h = 71;
 
-        this.health = 1;
+        this.health = 2;
 
-        this.lifew = 50 * this.health
+        this.lifew = 20 * this.health
+        this.lifew2 = 20 * this.health
         this.lifeh = 8
 
 
@@ -19,7 +20,7 @@ class BatHtml {
         this.img = new Image();
         this.img.src = './assets/img/bat-html.png';
         this.img.drawCount = 0;
-        this.img.frames = 7;
+        this.img.frames = 8;
         this.img.frameIndex = 0;
 
         this.hurtingCreature = new Audio('./assets/sounds/hurting-creature.wav')
@@ -45,6 +46,14 @@ class BatHtml {
         //const life = new MonsterLife(this.ctx, this.x + 10 , this.y - 10, 100, 10 )
         //life.draw()
 
+        this.ctx.fillStyle = '#5d0926'
+        this.ctx.fillRect(
+            this.x + 20,
+            this.y,
+            this.lifew2,
+            this.lifeh
+        )
+
         this.ctx.fillStyle = '#ff3066'
         this.ctx.fillRect(
             this.x + 20,
@@ -58,7 +67,7 @@ class BatHtml {
             this.img,
             this.img.frameIndex * this.img.width / this.img.frames,
             0,
-            this.img.width / 7,
+            this.img.width / 8,
             this.img.height,
             this.x,
             this.y,
@@ -70,11 +79,18 @@ class BatHtml {
     }
 
     animate() {
+        if (this.hurts) {
+            this.img.frameIndex = 7
+            this.hurts = false
+        }
+
+        else {
         this.img.frameIndex++
 
-        if (this.img.frameIndex >= this.img.frames) {
+        if (this.img.frameIndex >= this.img.frames - 1) {
             this.img.frameIndex = 0
         }
+    }
     }
 
     move() {
@@ -86,6 +102,8 @@ class BatHtml {
         this.hurtingCreature.play()
         this.health = this.health - damage;
         this.x = this.x + 20
+        this.lifew = this.lifew - this.lifew / this.health
+        this.hurts = true
 
     }
 

@@ -77,9 +77,9 @@ class Game {
     this.enemies.push(new BatHtml(this.ctx));
     this.enemies.push(new Skeleton(this.ctx));
     this.enemies.push(new Zombie(this.ctx));
-    this.graveyards.push(new Gravestone(this.ctx));
-    this.graveyards.push(new GravestoneAfterwork(this.ctx));
-    this.graveyards.push(new GravestoneCeltic(this.ctx));
+    //this.graveyards.push(new Gravestone(this.ctx));
+    //this.graveyards.push(new GravestoneAfterwork(this.ctx));
+    //this.graveyards.push(new GravestoneCeltic(this.ctx));
     this.extraLife.push(new ExtraLife(this.ctx));
 
 
@@ -250,7 +250,8 @@ class Game {
     this.music.pause()
     this.finalBattle.pause()
     this.gameoverSound.play()
-    this.gameOverImg.draw() 
+    document.getElementById('game-over').classList.remove('invisible')
+    document.getElementById('game').classList.add('invisible')
     
 
 
@@ -263,7 +264,8 @@ class Game {
     this.music.pause()
     this.finalBattle.pause()
     this.victoriusAudio.play()
-    this.winImg.draw() 
+    document.getElementById('win').classList.remove('invisible')
+    document.getElementById('game').classList.add('invisible')
 
 
 

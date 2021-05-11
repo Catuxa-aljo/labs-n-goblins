@@ -18,7 +18,7 @@ class Zombie{
             this.img = new Image();
             this.img.src = './assets/img/zombie.png';
             this.img.drawCount = 0;
-            this.img.frames = 8;
+            this.img.frames = 9;
             this.img.frameIndex = 0;
 
             this.hurtingZombie = new Audio('./assets/sounds/hurting-zombie.wav')
@@ -58,7 +58,7 @@ class Zombie{
             this.img,
             this.img.frameIndex * this.img.width / this.img.frames,
             0,
-            this.img.width / 8,
+            this.img.width / 9,
             this.img.height,
             this.x,
             this.y,
@@ -68,13 +68,29 @@ class Zombie{
 
 
     }
+    
+    receiveDamage(damage){
+        this.hurtingZombie.play()
+        this.health = this.health - damage;   
+        this.x = this.x + 20  
+        this.lifew = this.lifew - this.lifew/this.health   
+        this.hurts = true    
+               
+    }
 
     animate(){
+        if (this.hurts) {
+            this.img.frameIndex = 8
+            this.hurts = false
+        }
+
+        else {
         this.img.frameIndex++
 
-        if (this.img.frameIndex >= this.img.frames) {
+        if (this.img.frameIndex >= this.img.frames - 1) {
           this.img.frameIndex = 0
         }
+    }
     }
 
     move(){
@@ -82,14 +98,7 @@ class Zombie{
         this.x += this.vx
     }
 
-    receiveDamage(damage){
-        this.hurtingZombie.play()
-        this.health = this.health - damage;   
-        this.x = this.x + 20  
-        this.lifew = this.lifew - this.lifew/this.health       
-               
-    }
-
+  
     collide(el) {
         const collideX = el.x + el.w > this.x && el.x < this.x + this.w;
         const collideY = el.y < this.y + this.h && el.y + el.h > this.y;

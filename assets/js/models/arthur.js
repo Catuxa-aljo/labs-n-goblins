@@ -17,7 +17,7 @@ class Player {
         this.img = new Image();
         this.img.src = './assets/img/script-warrior-2.png';
         this.img.drawCount = 0;
-        this.img.frames = 9;
+        this.img.frames = 11;
         this.img.frameIndex = 0;
 
         this.jumpSound = new Audio('./assets/sounds/jump.wav')
@@ -58,7 +58,7 @@ class Player {
             this.img,
             this.img.frameIndex * this.img.width / this.img.frames,
             0,
-            this.img.width / 9,
+            this.img.width / 11,
             this.img.height,
             this.x,
             this.y,
@@ -103,14 +103,15 @@ class Player {
             this.canShoot = true
         }, 1000)
 
+        this.isShooting = true
     }
 
     receiveDamage(damage) {
         this.auch.play()
         this.health = this.health - damage;
         this.x = this.x - 50
-        this.y = this.y - 50
-        console.log(this.health)
+       
+        this.hurts = true
 
     }
 
@@ -118,35 +119,48 @@ class Player {
         if (this.health < 6) {
             this.health += points;
         }
-        console.log(this.health)
+        
 
     }
 
 
     animate() {
-        this.img.frameIndex++
 
-        if (this.vx === 0) {
+        if(this.hurts){
 
+            this.img.frameIndex = 10
+            this.hurts = false
+       
+        }       
+        
+       else if(this.isJumping()) {
+       
+           this.img.frameIndex = 8
+        }
+
+        else if(this.isShooting){
+
+            this.img.frameIndex = 9
+            this.isShooting = false
+       
+        }
+      
+         else if (this.vx === 0) {
+            this.img.frameIndex++
             if (this.img.frameIndex >= 4) {
                 this.img.frameIndex = 0
             }
         }
 
         else if (this.vx != 0 ) {
-            
-            if (this.img.frameIndex >= this.img.frames - 1) {
+            this.img.frameIndex++
+            if (this.img.frameIndex >= this.img.frames - 3) {
                 this.img.frameIndex = 4
 
             }
                   
         }
 
-        else if(this.vx === 0 && this.isJumping) {
-           
-            this.img.frameIndex = 8
-        
-    }
 
        
     }
