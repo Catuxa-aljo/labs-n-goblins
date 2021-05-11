@@ -77,9 +77,9 @@ class Game {
     this.enemies.push(new BatHtml(this.ctx));
     this.enemies.push(new Skeleton(this.ctx));
     this.enemies.push(new Zombie(this.ctx));
-    //this.graveyards.push(new Gravestone(this.ctx));
-    //this.graveyards.push(new GravestoneAfterwork(this.ctx));
-    //this.graveyards.push(new GravestoneCeltic(this.ctx));
+    this.graveyards.push(new Gravestone(this.ctx));
+    this.graveyards.push(new GravestoneAfterwork(this.ctx));
+    this.graveyards.push(new GravestoneCeltic(this.ctx));
     this.extraLife.push(new ExtraLife(this.ctx));
 
 
@@ -189,7 +189,7 @@ class Game {
     });
 
     this.domeEvil.isVisible = false
-    if (this.score.points === 5) {
+    if (this.score.points === 20) {
 
       this.domeEvil.isVisible = true
       this.domeEvil.draw();

@@ -55,8 +55,13 @@ window.addEventListener('load', () => {
 });
 
 function addWinner() {
+
+  let nom = document.getElementById('name').value;
+  localStorage.setItem("Nombre", nom);
+  document.getElementById('name').value = "";
+  let name = localStorage.getItem("Nombre");   
   let winner = document.getElementById('winners');
-  let hallOfFame = document.createElement('li')
-  hallOfFame.innerText = document.getElementById('name').value
-  winner.appendChild(hallOfFame)
+  let hallOfFame = document.createElement('li')  
+  hallOfFame.innerText =  name
+   winner.appendChild(hallOfFame)
 }

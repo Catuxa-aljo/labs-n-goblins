@@ -107,6 +107,23 @@ ul{
     
 }
 
+input{
+    background-color: black;
+    color: #fff;
+    margin-top: 600 px;
+    padding: 3%;
+
+}
+
+ol {
+    margin-top: 200px;
+  text-align: center;
+   color: #fff;
+   font-size: 20px;
+    
+}
+
+
 
 
 .invisible{display: none;
