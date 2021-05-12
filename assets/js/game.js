@@ -103,7 +103,6 @@ class Game {
         if (dague.collide(this.domeEvil)) {
           dague.isVisible = false
           this.domeEvil.receiveDamage(1)
-          console.log(this.domeEvil.health)
         }
       })
     }
@@ -252,7 +251,7 @@ class Game {
     this.gameoverSound.play()
     document.getElementById('game-over').classList.remove('invisible')
     document.getElementById('game').classList.add('invisible')
-    
+
 
 
 

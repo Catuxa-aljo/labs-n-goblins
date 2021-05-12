@@ -12,44 +12,52 @@
 <body>
 
     <div id="container">
- 
-        <div id="init-credit" class="">
-<ul>
-    <li>
-        <a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('how-to','','./assets/img/play-on.png',1)"><img src="./assets/img/play.png" alt=""  id="how-to"></a>
-    </li>
-    <li>
-        <a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('start-button','','./assets/img/start-on.png',1)"><img src="./assets/img/start.png" alt=""  id="start-button"></a>
-    </li>
-    <li>
-        <a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('hall-fame','','./assets/img/hall-on.png',1)"><img src="./assets/img/hall.png" alt=""  id="hall-fame"></a>
-    </li>
-</ul>
 
+        <div id="init-credit" class="">
+            <ul>
+                <li>
+                    <a href="#" id="how-to">HOW TO PLAY</a>
+                </li>
+                <li>
+                    <a href="#" id="start-button">GAME START</a>
+                </li>
+                <li>
+                    <a href="#" id="hall-fame">HALL OF FAME</a>
+                </li>
+            </ul>
         </div>
-        <canvas id="game" class="invisible" ></canvas>
-    <div id="how-you-play" class="invisible">
-        <div id="close-how-to"><a href="" id="close-window">X</a></div>
-        <img src="./assets/img/how-you-play.png" /></div>
+
+        <canvas id="game" class="invisible"></canvas>
+
+        <div id="how-you-play" class="invisible">
+            <div  class="close-window"><a href="#" id="close-how">X</a></div>
+            <img src="./assets/img/how-you-play.png" alt="game controls. Spacebar shoots. Use arrows for move"/>
+        </div>
 
         <div id="hall-of-fame" class="invisible">
-            <div id="close-how-to"><a href="" id="close-window">X</a></div>
-            <ol id="winners"></ul>
-            </div>
+            <div class="close-window"><a href="#"  id="close-hall">X</a></div>
+            <ol id="winners"></ol>
+        </div>
 
-            <div id="game-over" class="invisible">
-               <a href="#" id="play-again"><img src="./assets/img/try-again.png" />/a>
-            </div>
+        <div id="game-over" class="invisible">
+            <img src="./assets/img/game-over.png" alt="game over. You have been defeated"/>        
+            <a href="#" id="play-again" ><img src="./assets/img/try-again.png" alt="Try again" /></a>
+        </div>
 
-            
-                <div id="win" class="invisible">
-                    <input id="name" placeholder="your nameeeee"/>
-                    <button id="add-name">Submit</button>
-                    <img src="./assets/img/win-win.png" /></div>
+
+        <div id="win" class="invisible">           
+            <img src="./assets/img/win-win.png" alt="Well done! You win"/>
+            <form name="This are the winners">
+                <input id="name" placeholder="place your name among the heroes" />
+                <button id="add-name">Submit</button>
+            </form>
+         
+        </div>
+
     </div>
-    
-    </div>
- 
+
+
+
     <script src="./assets/js/scripts.js"></script>
     <script src="./assets/js/commands.js"></script>
     <script src="./assets/js/game-over.js"></script>
@@ -61,9 +69,9 @@
     <script src="./assets/js/models/graveyard.js"></script>
     <script src="./assets/js/models/graveyard2.js"></script>
     <script src="./assets/js/models/graveyard3.js"></script>
-    <script src="./assets/js/models/dague.js"></script>   
-    <script src="./assets/js/models/monsters-life.js"></script>  
-    <script src="./assets/js/models/zombie.js"></script>  
+    <script src="./assets/js/models/dague.js"></script>
+    <script src="./assets/js/models/monsters-life.js"></script>
+    <script src="./assets/js/models/zombie.js"></script>
     <script src="./assets/js/models/bat.js"></script>
     <script src="./assets/js/models/skeleton.js"></script>
     <script src="./assets/js/models/fire.js"></script>

@@ -6,6 +6,15 @@ body{
     
 }
 
+@font-face {
+    font-family: 'arcadepixregular';
+    src: url('./fonts/arcadepi-webfont.woff2') format('woff2'),
+         url('./fonts/arcadepi-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 #container {width:100%;
     height: 800px;
 	
@@ -27,6 +36,7 @@ canvas{
 
 #how-you-play{
     z-index: 80;
+	 opacity: 0.8
     
 }
 
@@ -36,25 +46,28 @@ canvas{
     height: 600px;
     background-image: url('./img/hall-of-fame.png');
     background-repeat: repeat;
+	opacity: 0.8
    
 }
 
-#close-how-to{
+.close-window{
     background-color: #ff3066;
     z-index: 81;
     position: absolute;
     font-size: 34px;
     color: #fff;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'arcadepixregular';
     margin: 10px;
     padding: 20px;
     font-weight: bolder;
     text-align: center;
     display: flex;
     justify-content: center;
+	 opacity: 1
+	
 }
 
-#close-how-to a{
+.close-window a{
     text-decoration: none;
     color: #fff;}
 
@@ -68,26 +81,55 @@ canvas{
     justify-content: center;
     align-items: baseline;
     opacity: 1;
-    transition: opacity .25s ease-in-out;
-    -moz-transition: opacity .25s ease-in-out;
-    -webkit-transition: opacity .25s ease-in-out;
+    transition: opacity 5s ease-in-out;
+    -moz-transition: opacity 5s ease-in-out;
+    -webkit-transition: opacity 5s ease-in-out;
+}
+
+
+#init-credit a{
+    font-family: 'arcadepixregular';
+	background: #DA7531;
+background: -webkit-linear-gradient(to bottom, #DA7531 0%, #d72d1d 100%);
+background: -moz-linear-gradient(to bottom, #DA7531 0%, #d72d1d 100%);
+background: linear-gradient(to bottom, #DA7531 0%, #d72d1d 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+    opacity: 0.3;
+    transition: opacity .70s ease-in-out;
+    -moz-transition: opacity .70s ease-in-out;
+    -webkit-transition: opacity .70s ease-in-out;
+	font-size: 24px;
+	font-weight: bolder;
+	  }
+
+#init-credit ul{
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	align-items: center;
+}
+
+#init-credit li{
+	text-align: center;
+	display: flex;
+	align-content: center;
+	align-items: center;
+	margin: 9px 0;
+	height: 29px
 }
 
 #init-credit a:hover {
-    opacity: 0.8;
-  }
-  
-#init-credit a {
- 
-    opacity: 0.2;
-    transition: opacity .50s ease-in-out;
-    -moz-transition: opacity .50s ease-in-out;
-    -webkit-transition: opacity .50s ease-in-out;
+	opacity: 1;	     
   }
 
+#init-credit a:hover::before {
+	content:url('./img/gaunlet.png')}
+
  #play-again{
-    
-      margin-top: 20px;  
+     z-index: 85;
+     vertical-align: bottom;
       -webkit-box-shadow: 5px 5px 15px 5px #1F87FF; 
       box-shadow: 5px 5px 15px 5px #1F87FF;
 
@@ -95,10 +137,7 @@ canvas{
 
   #game-over{
     width: 800px;
-    height: 600px;
-    background-image: url('./img/game-over.png');
-    background-repeat: no-repeat;
-
+    height: 650px;  
   }
 
 ul{
@@ -112,19 +151,49 @@ input{
     color: #fff;
     margin-top: 600 px;
     padding: 3%;
+    border: 5px inset #A4623A;
+    z-index: 85;
+    vertical-align: bottom;
+     -webkit-box-shadow: 5px 5px 15px 5px #1F87FF; 
+     box-shadow: 5px 5px 15px 5px #1F87FF;
+     width: 250px;
+     text-align: center;
+     margin-bottom: 20px;
 
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+#add-name{
+    font-family: 'arcadepixregular';
+    background-image: url('./img/submit.png');
+    width: 120px;
+    height: 48px;
+    text-transform: uppercase;
 }
 
 ol {
-    margin-top: 200px;
-  text-align: center;
+    margin: 200px auto;
+  text-align: left;
    color: #fff;
-   font-size: 20px;
+   font-size: 16px;
+   font-family: 'arcadepixregular';
+   width: 50%;
     
 }
 
+ol li{margin: 5%;}
 
 
 
-.invisible{display: none;
+
+.invisible{
+	opacity: 0;
+	display: none;
     transition: display .50s ease-in-out;}

@@ -27,13 +27,20 @@ window.addEventListener('load', () => {
   document.getElementById('hall-fame').onclick = () => {
     document.getElementById('init-credit').style.display = 'none';
     document.getElementById('hall-of-fame').classList.remove('invisible')
+    getValues();
 
   }
 
-  document.getElementById('close-window').onclick = () => {
+  document.getElementById('close-how').onclick = () => {
     document.getElementById('init-credit').style.display = 'block';
     document.getElementById('how-you-play').classList.add('invisible')
   }
+
+  document.getElementById('close-hall').onclick = () => {
+    document.getElementById('init-credit').style.display = 'block';
+    document.getElementById('hall-of-fame').classList.add('invisible')
+  }
+
 
 
   function displayGame() {
@@ -48,20 +55,34 @@ window.addEventListener('load', () => {
     document.getElementById('hall-of-fame').classList.remove('invisible')
     document.getElementById('win').classList.add('invisible')
     addWinner()
+    getValues();
 
   }
 
 
+
 });
 
-function addWinner() {
 
-  let nom = document.getElementById('name').value;
-  localStorage.setItem("Nombre", nom);
-  document.getElementById('name').value = "";
-  let name = localStorage.getItem("Nombre");   
-  let winner = document.getElementById('winners');
-  let hallOfFame = document.createElement('li')  
-  hallOfFame.innerText =  name
-   winner.appendChild(hallOfFame)
+const list = document.getElementById('winners'),
+form = document.querySelector('form'),
+item = document.getElementById('name');
+
+function addWinner() { 
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    list.innerHTML += '<li>' + item.value + '</li>';
+    store();
+    item.value = "";
+  },false)  
+  
+  function store() {
+    window.localStorage.myitems = list.innerHTML;
+  }
+  
 }
+function getValues() {
+  const storedValues = window.localStorage.myitems;    
+   
+      list.innerHTML = storedValues;
+      }

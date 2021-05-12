@@ -7,6 +7,8 @@ class Gravestone {
         this.w = 83;
         this.h = 100;
 
+        this.canHurt = false;
+
         this.vx = -1
 
         this.img = this.img = new Image();
@@ -36,8 +38,18 @@ class Gravestone {
         const collideX = el.x + el.w > this.x && el.x < this.x + this.w;
         const collideY = el.y < this.y + this.h && el.y + el.h > this.y;
     
-        
-        return collideX && collideY;
+        if (collideX && collideY && this.canHurt) {
+
+            this.canHurt = false
+
+            setTimeout(() => {
+                this.canHurt = true
+            }, 5000)
+
+            return collideX && collideY;
+        }
+
+        return false
       }
 
       
