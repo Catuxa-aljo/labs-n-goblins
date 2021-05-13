@@ -1,6 +1,10 @@
 window.addEventListener('load', () => {
   let game = new Game('game');
-
+  document.getElementById('init-credit').style.display = 'none';
+  setTimeout(() =>
+  { document.getElementById('intro-game').style.display = 'none';
+  document.getElementById('init-credit').style.display = 'block';
+ }, 10000);
 
   document.getElementById('start-button').onclick = () => {
     if (!game.intervalId) {

@@ -50,6 +50,16 @@ canvas{
    
 }
 
+#intro-game{
+    z-index: 80;
+    width: 800px;
+    height: 600px;
+    background-image: url('./img/intro.gif');
+    background-repeat: no-repeat;
+
+   
+}
+
 .close-window{
     background-color: #ff3066;
     z-index: 81;
