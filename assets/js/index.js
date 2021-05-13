@@ -69,8 +69,8 @@ form = document.querySelector('form'),
 item = document.getElementById('name');
 
 function addWinner() { 
-  form.addEventListener('submit',function(e){
-    e.preventDefault();
+  form.addEventListener('submit',function(event){
+    event.preventDefault();
     list.innerHTML += '<li>' + item.value + '</li>';
     store();
     item.value = "";
@@ -84,5 +84,11 @@ function addWinner() {
 function getValues() {
   const storedValues = window.localStorage.myitems;    
    
+     if(!storedValues) {
+      console.log('No one has defeated the DOM yet')
+    }
+    else {
       list.innerHTML = storedValues;
+    }
       }
+
